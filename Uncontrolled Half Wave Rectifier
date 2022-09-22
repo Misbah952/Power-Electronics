@@ -1,0 +1,134 @@
+Introduction  
+ 
+The IV Characteristics of a diode can be expressed by an equation known as the Schockley diode equation: 
+  
+The name of a diode must start with D, and it takes the general form  
+D<name> NA NK DNAME[(area) value] 
+where NA and NK are the node the cathode nodes, respectively. The current flows from anode node NA through the diode to cathode node NK. DNAME is the model name. 
+Some diode statements are 
+D15 33 35 SWITCH 1.5 
+.MODEL SWITCH D(IS=100E–15 CJO=2PF TT=12NS BV=100 IBV=10E–3) 
+DCLAMP 0 8 DIN914 
+.MODEL DIN914 D (IS=100E–15 CJO=2PF TT=12NS BV=100 IBV=10E–3) 
+The EVAL library of the PSpice student version supports few low power diodes such as D1N4002, D1N4148, and D1N914.  
+  
+ID = current through the diode, A 
+VD = diode voltage with anode positive with respect to cathode, V 
+Is = leakage (or reverse saturation) current, typically in the range 10–6 to 10–20 A n = Empirical constant known as the emission coefficient (or ideality factor),
+whose value varies from 1 to 2 The emission coefficient, n, depends on the material and the physical construction of diodes. For germanium diodes, n is considered 
+to be 1. For silicon diodes, the predicted value of n is 2, but for most silicon diodes the value of n is in the range 1.1 to 1.8. 
+VT in Equation is a constant called the thermal voltage, and it is given by: 
+  
+Page 2 of 7 
+The equivalent parametrical model of a diode is: 
+ 
+ 
+ 
+ 
+The parameters that are required to model a diode in PSpice are as under: 
+  
+However to keep the modeling simple following statement will give close enough approximation as a diode. 
+ 
+.MODEL D1N4002 D (IS=2.22E-15  BV=1200V IBV=12E-2 CJO=2PF TT=1US) 
+ 
+The properties of the diode can be edited by selecting a diode and then going into Edit>PSpice Model. 
+National University of Sciences & Technology NUST 
+School of Electrical Engineering and Computer Science SEECS Department of Electrical Engineering
+ 
+Diode Rectifiers 
+A rectifier converts an AC voltage to a DC voltage and uses diodes as the switching devices. The output voltage of an ideal rectifier should be pure DC and contain
+no harmonics or ripples. Similarly, the input current should be pure sine wave and contain no harmonics. That is, the total harmonic distortion (THD) of the input 
+current and output voltage should be zero, and the input power factor should be unity.The output voltage, the output current, and the input current of a rectifier 
+contain harmonics. The input power factor PFi can be determined from the THDi of the input current as follows: 
+ 
+  where 
+I1(rms) = rms value of the fundamental input current Is = rms value of the input current 
+φ1 = angle between the fundamental component of the input current and the fundamental component of the input voltage %THD = percentage total harmonic distortion 
+of the input current 
+1. Finding the Performance of a Half Wave Diode Rectifier 
+A single-phase half-wave rectifier is shown in Figure. The input voltage is sinusoidal with a peak of 169.7 V, 60 Hz. The load inductance L is 6.5 mH, and the load 
+resistance R is 0.5Ω. Use PSpice (a) to plot the instantaneous output voltage vo and the load current io, (b) to calculate the Fourier coefficient of the output 
+voltage, and (c) to find the input power factor. Please use simple diode model and modify PSpice model of D1N4002 as under: 
+.MODEL D1N4002 D (IS=2.22E-15 BV=1200V IBV=12E-2 CJO=2PF TT=1US) 
+ 
+0
+ 
+	  	  
+PSpice simulation setup. (a) Transient setup, (b) Fourier setup. 
+ 
+Circuit :
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+Output:
+
+ 
+
+ 
+ 
+
+DC input current Iin(DC) =  43.246
+Rms fundamental input current, I1(rms) =  38.26
+THD of input current THD =   0.16154
+Harmonic input current, Ih(rms) = I1(rms) ∗ THD = 38.26*0.16154 = 6.1807
+Rms input current,   Is = [I2in(dc) + I21(rms) + I2h(rms)]0.5=   2.786
+Displacement angle φ1 = 66.13
+Displacement factor DF = cosφ1= 0.4046
+Thus, the input power factor is given [1] by: 
+     = 0.3994
+ 
+The power factor can also be determined directly from the THD as follows: 
+   
+This gives a higher value and cannot be applied if there is a significant amount of DC component.  
+Note: The load current is discontinuous. When the diode turns off, there is a voltage transient. If an antiparallel diode (also known as the freewheeling diode) is 
+connected across the load, the load current will be smoother. As a result, the power factor will improve. Students are encouraged to simulate the circuit with an 
+antiparallel diode to verify this. 
+2. Finding the Performance of a Single­Bridge Rectifier 
+A single-phase bridge rectifier is shown in Figure. The sinusoidal input voltage has a peak of 170 V, 60 Hz. The load inductance L is 6.5mH, and the load resistance 
+R is 0.5Ω. Use PSpice (a) to plot the instantaneous output voltage vo and the load current io and (b) to calculate the Fourier coefficients of the input current and 
+the input power factor. 
+ 
+ 
+ 
+  	  
+PSpice simulation setup. (a) Transient setup, (b) Fourier setup. 
+
+
+
+
+
+
+
+Circuit
+ 
+ 
+Output:
+   
+
+ 
+DC input current Iin(DC) = -1.789
+Rms fundamental input current, I1(rms) = 163.27
+THD of input current THD = 0.4189
+Harmonic input current, Ih(rms) = I1(rms) ∗ THD = 68.394
+Rms input current Is = [I2in(dc) + I21(rms) + I2h(rms)]0.5= 0.1499
+Displacement angle φ1 = 3.569
+Displacement factor DF = cosφ1 = 0.99806
+Thus, the input power factor is given [1] by: 
+     = 
+The power factor can also be determined directly from the THD as follows: 
+     = 0.9205
+Conclusion: 
+We looked into single phase half wave rectifier. In this first part, as the inductor was also included with the resistor as the load, therefore it becomes the energy 
+source when the negative cycle of applied voltage is at the anode of diode. In the second part, we looked into the bridge configuration. The output voltage is 
+rectified in both cases. For each of the positive and negative voltage cycle, two of the four diodes are closed and therefore current flows through the circuit.
+The polarity of the current remains same for both cycles.

@@ -11,7 +11,9 @@ D15 33 35 SWITCH 1.5
 DCLAMP 0 8 DIN914 
 .MODEL DIN914 D (IS=100E–15 CJO=2PF TT=12NS BV=100 IBV=10E–3) 
 The EVAL library of the PSpice student version supports few low power diodes such as D1N4002, D1N4148, and D1N914.  
-  
+
+   ![image](https://user-images.githubusercontent.com/80267029/191837911-b4b14fea-67df-4102-8dda-fe1de163aeb7.png)
+
 ID = current through the diode, A 
 VD = diode voltage with anode positive with respect to cathode, V 
 Is = leakage (or reverse saturation) current, typically in the range 10–6 to 10–20 A n = Empirical constant known as the emission coefficient (or ideality factor),
